@@ -5,3 +5,7 @@ before_install:
   - sdk use java 17.0.10-open
 jdk:
   - openjdk17
+
+build:
+  commands:
+    - ./gradlew :plugin:build
