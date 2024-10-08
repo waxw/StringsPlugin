@@ -13,6 +13,22 @@ gradlePlugin {
     }
 }
 
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+            groupId = "com.miyako.strings"
+            artifactId = "plugin"
+            version = "1.0.0"
+        }
+    }
+    repositories {
+        maven {
+            setUrl(layout.buildDirectory.dir("./repo")) // 发布到插件模块 build/repo 路径下
+        }
+    }
+}
+
 dependencies {
     implementation(libs.poi.xml)
 }

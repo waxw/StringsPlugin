@@ -8,6 +8,7 @@ espressoCore = "3.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
 
+stringsPlugin = "1.0.0"
 poi-ooxml = "5.2.3"
 
 [libraries]
@@ -18,9 +19,11 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
+strings-plugin = { module = "com.miyako.strings:plugin", version.ref = "stringsPlugin" }
 poi-xml = { module = "org.apache.poi:poi-ooxml", version.ref = "poi.ooxml" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
+strings-plugin = { id = "com.miyako.strings.plugin", version.ref = "stringsPlugin" }
