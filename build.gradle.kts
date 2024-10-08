@@ -6,6 +6,6 @@ plugins {
 
 buildscript {
     dependencies {
-        classpath(libs.strings.plugin)
+//        classpath(libs.strings.plugin)
     }
 }
