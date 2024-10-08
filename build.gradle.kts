@@ -5,7 +5,7 @@ plugins {
 }
 
 buildscript {
-//    dependencies {
-//        classpath(libs.strings.plugin)
-//    }
+    dependencies {
+        classpath(libs.strings.plugin)
+    }
 }
