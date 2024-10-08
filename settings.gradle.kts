@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "StringsPlugin"
 include(":app")
- 
+include(":plugin")
