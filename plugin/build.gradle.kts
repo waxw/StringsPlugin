@@ -25,10 +25,12 @@ gradlePlugin {
 group = "com.miyako.strings"
 version = libs.plugins.strings.plugin.get().version
 
-publishing {
-    repositories {
-        maven {
-            setUrl("../local-repo/") // 发布到根项目的 local-repo 路径下
+afterEvaluate {
+    publishing {
+        repositories {
+            maven {
+                setUrl("../local-repo/") // 发布到根项目的 local-repo 路径下
+            }
         }
     }
 }
