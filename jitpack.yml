@@ -6,6 +6,5 @@ before_install:
 jdk:
   - openjdk17
 
-build:
-  commands:
-    - ./gradlew :plugin:build
+install:
+  - ./gradlew :plugin:publishToMavenLocal
