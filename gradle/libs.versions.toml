@@ -19,11 +19,11 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
-strings-plugin = { module = "com.miyako.strings:plugin", version.ref = "stringsPlugin" }
 poi-xml = { module = "org.apache.poi:poi-ooxml", version.ref = "poi.ooxml" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 strings-plugin = { id = "com.miyako.strings.plugin", version.ref = "stringsPlugin" }

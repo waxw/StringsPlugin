@@ -1,7 +1,8 @@
 plugins {
     `maven-publish`
     `java-gradle-plugin`
-    kotlin("jvm")
+    // 这里需要指定 version，否则会提示找不到插件实现类
+    kotlin("jvm") version libs.plugins.kotlin.jvm.get().version.displayName
 }
 
 java {
@@ -11,25 +12,23 @@ java {
 
 gradlePlugin {
     plugins {
-        create("stringsPlugin") {
+        register("stringsPlugin") {
             id = "com.miyako.strings.plugin"
             implementationClass = "com.miyako.strings.plugin.StringsPlugin"
+            displayName = "Handle strings.xml plugin for Android"
+            description = "A plugin help you to handle android strings.xml"
+            tags.addAll("android", "strings")
         }
     }
 }
 
+group = "com.miyako.strings"
+version = libs.plugins.strings.plugin.get().version
+
 publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            from(components["java"])
-            groupId = "com.miyako.strings"
-            artifactId = "plugin"
-            version = "1.0.0"
-        }
-    }
     repositories {
         maven {
-            setUrl(layout.buildDirectory.dir("./repo")) // 发布到插件模块 build/repo 路径下
+            setUrl("../local-repo/") // 发布到根项目的 local-repo 路径下
         }
     }
 }
