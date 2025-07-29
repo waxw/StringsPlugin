@@ -87,7 +87,7 @@ object StringsCore {
         list.forEach {
             val (name, value) = it
             val newValue = value.replace("'", "\\'")
-            val finalValue = "<string name=\"${name}\">${newValue}</string>"
+            val finalValue = "\t<string name=\"${name}\">${newValue}</string>"
             println("origin value: $value")
             println("final value: $finalValue")
             stringBuilder.appendLine(finalValue)
@@ -110,8 +110,7 @@ object StringsCore {
             val (name, value) = it
             val rgx = getStringName(name)
             Regex(rgx).find(newContent)?.let {
-                val newValue = value.replace("'", "\\'")
-                val finalValue = "<string name=\"${name}\">${newValue}</string>"
+                val finalValue = "<string name=\"${name}\">${value}</string>"
                 println("origin value: $value")
                 println("final value: $finalValue")
                 // Regex.escapeReplacement(value)，替换文案中的 '\' 反斜杠
@@ -175,11 +174,13 @@ object StringsCore {
                 row.forEachIndexed { column, cell ->
                     if (column == 0) {
                         val key = cell.stringCellValue
-                        if (key.isNotEmpty()) {
+                        if (key.validateXmlStringName()) {
                             name = key
+                        } else {
+                            throw IllegalArgumentException("key is not match: $key")
                         }
                     } else if (countryColumn.containsKey(column) && name.isNotEmpty()) {
-                        val strings = cell.stringCellValue
+                        val strings = cell.stringCellValue.convertXmlStringValue()
                         if (strings.isNotEmpty() && countryMap.containsKey(countryColumn[column])) {
                             println("cell: $name, $strings")
                             countryMap[countryColumn[column]]?.add(StringValue(name, strings))
@@ -196,4 +197,21 @@ object StringsCore {
     }
 
     data class StringValue(val name: String, val value: String)
+
+    fun String.validateXmlStringName(): Boolean {
+        return Regex("^[a-zA-Z][a-zA-Z0-9_]*$").matches(this)
+    }
+
+    fun String.convertXmlStringValue(): String {
+        return this.replace("""[&<>'\r\n]|^\s+|\s+$""".toRegex()) {
+            when (it.value) {
+                "&" -> "&amp;"
+                "<" -> "&lt;"
+                ">" -> "&gt;"
+                "'" -> "\\'"
+                "\r", "\n" -> " "
+                else -> "" // 去除前后空格
+            }
+        }
+    }
 }
