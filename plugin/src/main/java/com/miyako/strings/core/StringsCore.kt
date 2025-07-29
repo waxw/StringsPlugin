@@ -99,6 +99,21 @@ object StringsCore {
         return newContent to cnt
     }
 
+    fun createStringContent(
+        content: String,
+        list: List<String>
+    ): String {
+        var newContent = content
+        val stringBuilder = StringBuilder()
+        list.forEach {
+            stringBuilder.appendLine(it)
+        }
+        val endRgx = "</resources>"
+        val finalEndValue = stringBuilder.append("</resources>").toString()
+        newContent = Regex(endRgx).replace(newContent, Regex.escapeReplacement(finalEndValue))
+        return newContent
+    }
+
     fun replaceStringContent(
         content: String,
         list: List<StringValue>
@@ -137,6 +152,24 @@ object StringsCore {
             }
         }
         return newContent to cnt
+    }
+
+    fun findStringContent(
+        content: String,
+        list: List<String>,
+        tag: String = ""
+    ): List<String> {
+        var newContent = content
+        val results = mutableListOf<String>()
+        list.forEach { name ->
+            val regexName = "\\s*" + getStringName(name)
+            Regex(regexName).find(newContent)?.let {
+                val result = it.value.removePrefix("\n")
+                println("$tag find key: $name, $result")
+                results.add(result)
+            }
+        }
+        return results
     }
 
     // (.|\n) 去匹配任意字符的内容，包括换行符
