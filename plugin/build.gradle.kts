@@ -1,12 +1,13 @@
 plugins {
-    `java-gradle-plugin`
     // 这里需要指定 version，否则会提示找不到插件实现类
     kotlin("jvm") version libs.plugins.kotlin.jvm.get().version.displayName
     // maven publishing 第三方插件，已包含 `maven-publish`
     alias(libs.plugins.maven.publish.plugin)
+    // 发布到 gradle plugin protal，已经包含 `java-gradle-plugin`
+    alias(libs.plugins.gralde.publish.plugin)
 }
 
-val pluginProjetGroup = "com.miyako.strings"
+val pluginProjetGroup = "io.github.waxw"
 val publishGroupId = "io.github.waxw"
 val publishVersion = "1.0.0"
 val publishArtifactId = "strings-plugin"
@@ -17,9 +18,11 @@ java {
 }
 
 gradlePlugin {
+    website.set("https://github.com/waxw/StringsPlugin")
+    vcsUrl.set("https://github.com/waxw/StringsPlugin.git")
     plugins {
         register("stringsPlugin") {
-            id = "com.miyako.strings.plugin"
+            id = "io.github.waxw.strings.plugin"
             implementationClass = "com.miyako.strings.plugin.StringsPlugin"
             displayName = "Handle strings.xml plugin for Android"
             description = "A plugin help you to handle android strings.xml"

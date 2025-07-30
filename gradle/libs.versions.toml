@@ -10,6 +10,7 @@ material = "1.12.0"
 stringsPlugin = "1.0.0"
 poi-ooxml = "5.2.3"
 mavenPublishPlugin = "0.34.0"
+gradlePublishPlugin = "1.3.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -26,5 +27,6 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-strings-plugin = { id = "com.miyako.strings.plugin", version.ref = "stringsPlugin" }
+strings-plugin = { id = "io.github.waxw.strings.plugin", version.ref = "stringsPlugin" }
 maven-publish-plugin = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublishPlugin" }
+gralde-publish-plugin = { id = "com.gradle.plugin-publish", version.ref = "gradlePublishPlugin" }
