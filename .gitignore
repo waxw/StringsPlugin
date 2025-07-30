@@ -23,3 +23,7 @@ local.properties
 /.idea/other.xml
 /.idea/vcs.xml
 /.idea/git_toolbox_prj.xml
+/secring.gpg
+/.idea/runConfigurations.xml
+/.idea/AndroidProjectSystem.xml
+/local-repo
