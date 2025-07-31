@@ -6,11 +6,6 @@ plugins {
     alias(libs.plugins.maven.publish.plugin)
 }
 
-val pluginProjetGroup = "com.miyako.strings"
-val publishGroupId = "io.github.waxw"
-val publishVersion = "1.0.0"
-val publishArtifactId = "strings-plugin"
-
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
@@ -29,11 +24,11 @@ gradlePlugin {
 }
 
 // gradle 本地 group，不影响
-group = pluginProjetGroup
+group = "com.miyako.strings"
 version = libs.plugins.strings.plugin.get().version
 
 mavenPublishing {
-    coordinates(publishGroupId, publishArtifactId, publishVersion)
+    coordinates("io.github.waxw", "strings-plugin", "1.0.1")
     publishToMavenCentral()
     signAllPublications()
 
@@ -72,6 +67,12 @@ afterEvaluate {
             maven {
                 setUrl("../local-repo/") // 发布到根项目的 local-repo 路径下
             }
+        }
+    }
+    // 禁用 plugin marker 的生成
+    tasks.withType<PublishToMavenRepository>().configureEach {
+        if (name.contains("PluginMarker")) {
+            enabled = false
         }
     }
 }
