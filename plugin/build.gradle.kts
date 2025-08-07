@@ -24,10 +24,6 @@ gradlePlugin {
     }
 }
 
-// gradle 本地 group，不影响
-group = "com.miyako.strings"
-version = libs.plugins.strings.plugin.get().version
-
 // com.vanniktech.maven.publish 提供的配置项
 mavenPublishing {
     coordinates("io.github.waxw", "strings-plugin", "1.0.1")

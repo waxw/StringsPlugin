@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.strings.plugin)
+    id("com.miyako.strings.plugin")
 }
 
 android {
