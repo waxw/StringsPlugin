@@ -7,16 +7,23 @@ import com.miyako.strings.plugin.task.HandleStringsTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-class StringsPlugin: Plugin<Project> {
+class StringsPlugin : Plugin<Project> {
     override fun apply(target: Project) {
-        target.tasks.register("testStrings") {
+        val taskMap = buildMap {
+            put("countStrings", CountStringsTask::class.java)
+            put("deleteStrings", DeleteStringsTask::class.java)
+            put("handleStrings", HandleStringsTask::class.java)
+            put("findStrings", FindStringsTask::class.java)
+        }
+
+        taskMap.forEach {
+            target.tasks.register(it.key, it.value)
+        }
+
+        target.tasks.register("allStringsTasks") {
             it.doLast {
-                println("test strings task")
+                println("all task: " + taskMap.keys.joinToString())
             }
         }
-        target.tasks.register("countStrings", CountStringsTask::class.java)
-        target.tasks.register("deleteStrings", DeleteStringsTask::class.java)
-        target.tasks.register("handleStrings", HandleStringsTask::class.java)
-        target.tasks.register("findStrings", FindStringsTask::class.java)
     }
 }
