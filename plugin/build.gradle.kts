@@ -11,6 +11,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
+// gradle 插件配置
 gradlePlugin {
     plugins {
         register("stringsPlugin") {
@@ -27,6 +28,7 @@ gradlePlugin {
 group = "com.miyako.strings"
 version = libs.plugins.strings.plugin.get().version
 
+// com.vanniktech.maven.publish 提供的配置项
 mavenPublishing {
     coordinates("io.github.waxw", "strings-plugin", "1.0.1")
     publishToMavenCentral()
@@ -59,21 +61,21 @@ mavenPublishing {
             developerConnection.set("scm:git:ssh://git@github.com:waxw/StringsPlugin.git")
         }
     }
-}
 
-afterEvaluate {
     publishing {
         repositories {
             maven {
+                name = "project" // publishPluginMavenPublicationToProjectRepository
                 setUrl("../local-repo/") // 发布到根项目的 local-repo 路径下
             }
         }
     }
-    // 禁用 plugin marker 的生成
-    tasks.withType<PublishToMavenRepository>().configureEach {
-        if (name.contains("PluginMarker")) {
-            enabled = false
-        }
+}
+
+// 禁用 plugin marker 的生成
+tasks.withType<PublishToMavenRepository>().configureEach {
+    if (name.contains("PluginMarker")) {
+        enabled = false
     }
 }
 
