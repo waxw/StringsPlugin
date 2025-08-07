@@ -9,7 +9,6 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
-        maven { setUrl("./local-repo/") }
     }
 }
 
@@ -18,7 +17,6 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { setUrl("./local-repo/") }
     }
 
     versionCatalogs {
