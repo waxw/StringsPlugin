@@ -1,9 +1,10 @@
 plugins {
-    `java-gradle-plugin`
     // 这里需要指定 version，否则会提示找不到插件实现类
     kotlin("jvm") version libs.plugins.kotlin.jvm.get().version.displayName
     // maven publishing 第三方插件，已包含 `maven-publish`
     alias(libs.plugins.maven.publish.plugin)
+    // 发布到 gradle plugin protal，已经包含 `java-gradle-plugin`
+    alias(libs.plugins.gralde.publish.plugin)
 }
 
 java {
@@ -11,11 +12,16 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
+val gavGroupId = "io.github.waxw"
+val gavArtifactId = "strings-plugin"
+val gavVersion = "1.0.2"
 // gradle 插件配置
 gradlePlugin {
+    website.set("https://github.com/waxw/StringsPlugin")
+    vcsUrl.set("https://github.com/waxw/StringsPlugin.git")
     plugins {
         register("stringsPlugin") {
-            id = "com.miyako.strings.plugin"
+            id = "io.github.waxw.strings.plugin"
             implementationClass = "com.miyako.strings.plugin.StringsPlugin"
             displayName = "Handle strings.xml plugin for Android"
             description = "A plugin help you to handle android strings.xml"
@@ -26,7 +32,7 @@ gradlePlugin {
 
 // com.vanniktech.maven.publish 提供的配置项
 mavenPublishing {
-    coordinates("io.github.waxw", "strings-plugin", "1.0.1")
+    coordinates(gavGroupId, gavArtifactId, gavVersion)
     publishToMavenCentral()
     signAllPublications()
 
@@ -65,13 +71,6 @@ mavenPublishing {
                 setUrl("../local-repo/") // 发布到根项目的 local-repo 路径下
             }
         }
-    }
-}
-
-// 禁用 plugin marker 的生成
-tasks.withType<PublishToMavenRepository>().configureEach {
-    if (name.contains("PluginMarker")) {
-        enabled = false
     }
 }
 
