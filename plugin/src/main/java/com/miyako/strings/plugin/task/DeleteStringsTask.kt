@@ -15,7 +15,7 @@ open class DeleteStringsTask : DefaultTask() {
     @TaskAction
     fun deleteStrings() {
         val countries =
-            (project.properties["values"] as? String)?.split(",")?.toList() ?: emptyList()
+            (project.properties["countries"] as? String)?.split(",")?.toList() ?: emptyList()
         val targetKeys =
             (project.properties["keys"] as? String)?.split(",")?.toList() ?: emptyList()
 
@@ -38,7 +38,7 @@ open class DeleteStringsTask : DefaultTask() {
 
         val root = "${project.projectDir}/src/main/res"
 
-        val stringsFile = "strings.xml"
+        val stringsFile = (project.properties["target"] as? String) ?: "strings.xml"
 
         val stringsXmlFiles = if (countries.isEmpty() || countries.any { it == "all" }) {
             Paths.get(root).listDirectoryEntries("values*").map {

@@ -15,11 +15,11 @@ open class CountStringsTask : DefaultTask() {
     fun count() {
 
         val countries =
-            (project.properties["values"] as? String)?.split(",")?.toList() ?: emptyList()
+            (project.properties["countries"] as? String)?.split(",")?.toList() ?: emptyList()
 
         val root = "${project.projectDir}/src/main/res"
 
-        val stringsFile = "strings.xml"
+        val stringsFile = (project.properties["target"] as? String) ?: "strings.xml"
 
         val stringsXmlFiles = if (countries.isEmpty()) {
             val name = "values/$stringsFile"
