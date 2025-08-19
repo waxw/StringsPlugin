@@ -13,7 +13,7 @@ import kotlin.io.path.exists
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.pathString
 
-abstract class FindStringsTask : BaseTask() {
+abstract class FindStringsStringsTask : BaseStringsTask() {
     @get:Input
     abstract val keys: ListProperty<String>
 

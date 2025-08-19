@@ -2,10 +2,8 @@ package com.miyako.strings.plugin.task
 
 import com.miyako.strings.core.StringsCore
 import com.miyako.strings.core.StringsCore.StringValue
-import org.gradle.api.DefaultTask
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.TaskAction
 import java.io.File
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -15,7 +13,7 @@ import kotlin.io.path.exists
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.pathString
 
-abstract class HandleStringsTask : BaseTask() {
+abstract class HandleStringsStringsTask : BaseStringsTask() {
     @get:Input
     abstract val sheet: Property<String>
 

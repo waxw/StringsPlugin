@@ -7,7 +7,7 @@ import javax.xml.parsers.DocumentBuilderFactory
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.pathString
 
-abstract class CountStringsTask : BaseTask() {
+abstract class CountStringsStringsTask : BaseStringsTask() {
     override fun action() {
 
         val countries = countries.get()

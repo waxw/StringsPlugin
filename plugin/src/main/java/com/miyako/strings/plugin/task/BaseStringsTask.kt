@@ -7,7 +7,7 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 
-abstract class BaseTask : DefaultTask() {
+abstract class BaseStringsTask : DefaultTask() {
 
     @get:Input
     abstract val inputXml: Property<String>

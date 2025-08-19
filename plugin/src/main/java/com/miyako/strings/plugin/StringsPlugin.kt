@@ -1,9 +1,9 @@
 package com.miyako.strings.plugin
 
-import com.miyako.strings.plugin.task.CountStringsTask
-import com.miyako.strings.plugin.task.DeleteStringsTask
-import com.miyako.strings.plugin.task.FindStringsTask
-import com.miyako.strings.plugin.task.HandleStringsTask
+import com.miyako.strings.plugin.task.CountStringsStringsTask
+import com.miyako.strings.plugin.task.DeleteStringsStringsTask
+import com.miyako.strings.plugin.task.FindStringsStringsTask
+import com.miyako.strings.plugin.task.HandleStringsStringsTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -24,7 +24,7 @@ class StringsPlugin : Plugin<Project> {
                         config.name.replace(DEFAULT_NAME, "").replaceFirstChar { it.uppercase() }
                 project.tasks.register(
                     taskName,
-                    CountStringsTask::class.java
+                    CountStringsStringsTask::class.java
                 ) { task ->
                     task.group = taskGroup
                     task.countries.set(config.countries)
@@ -40,7 +40,7 @@ class StringsPlugin : Plugin<Project> {
                         config.name.replace(DEFAULT_NAME, "").replaceFirstChar { it.uppercase() }
                 project.tasks.register(
                     taskName,
-                    DeleteStringsTask::class.java
+                    DeleteStringsStringsTask::class.java
                 ) { task ->
                     task.group = taskGroup
                     task.countries.set(config.countries)
@@ -58,7 +58,7 @@ class StringsPlugin : Plugin<Project> {
                         config.name.replace(DEFAULT_NAME, "").replaceFirstChar { it.uppercase() }
                 project.tasks.register(
                     taskName,
-                    FindStringsTask::class.java
+                    FindStringsStringsTask::class.java
                 ) { task ->
                     task.group = taskGroup
                     task.countries.set(config.countries)
@@ -77,7 +77,7 @@ class StringsPlugin : Plugin<Project> {
                         config.name.replace(DEFAULT_NAME, "").replaceFirstChar { it.uppercase() }
                 project.tasks.register(
                     taskName,
-                    HandleStringsTask::class.java
+                    HandleStringsStringsTask::class.java
                 ) { task ->
                     task.group = taskGroup
                     task.countries.set(config.countries)

@@ -10,7 +10,7 @@ import kotlin.io.path.exists
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.pathString
 
-abstract class DeleteStringsTask : BaseTask() {
+abstract class DeleteStringsStringsTask : BaseStringsTask() {
     @get:Input
     abstract val keys: ListProperty<String>
 
