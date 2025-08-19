@@ -38,6 +38,9 @@ abstract class StringsExtensions @Inject constructor(objects: ObjectFactory) {
     val findKeys: FindStringsExtension =
         objects.newInstance(FindStringsExtension::class.java, objects)
 
+    val handleStrings: HandleStringsExtension =
+        objects.newInstance(HandleStringsExtension::class.java, objects)
+
     fun countKeys(action: Action<CountStringsExtension>) {
         action.execute(countKeys)
     }
@@ -48,6 +51,10 @@ abstract class StringsExtensions @Inject constructor(objects: ObjectFactory) {
 
     fun findKeys(action: Action<FindStringsExtension>) {
         action.execute(findKeys)
+    }
+
+    fun handleStrings(action: Action<HandleStringsExtension>) {
+        action.execute(handleStrings)
     }
 }
 
@@ -67,4 +74,10 @@ abstract class FindStringsExtension @Inject constructor(
     objects: ObjectFactory
 ) : BaseExtensions<FindStringsConfig>(objects) {
     override val config: NamedDomainObjectContainer<FindStringsConfig> = createContainer()
+}
+
+abstract class HandleStringsExtension @Inject constructor(
+    objects: ObjectFactory
+) : BaseExtensions<HandleStringsConfig>(objects) {
+    override val config: NamedDomainObjectContainer<HandleStringsConfig> = createContainer()
 }

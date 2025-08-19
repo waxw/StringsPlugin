@@ -3,6 +3,8 @@ package com.miyako.strings.plugin.task
 import com.miyako.strings.core.StringsCore
 import com.miyako.strings.core.StringsCore.StringValue
 import org.gradle.api.DefaultTask
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 import java.nio.file.Path
@@ -13,14 +15,19 @@ import kotlin.io.path.exists
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.pathString
 
-open class HandleStringsTask : DefaultTask() {
+abstract class HandleStringsTask : BaseTask() {
+    @get:Input
+    abstract val sheet: Property<String>
 
-    @TaskAction
-    fun handleStrings() {
-        val countries =
-            (project.properties["counties"] as? String)?.split(",")?.toList() ?: emptyList()
+    @get:Input
+    abstract val outputXml: Property<String>
 
-        val xlsFile = (project.properties["file"] as? String)?.let {
+    override fun action() {
+        val countries = countries.get()
+        val sheet = sheet.get()
+        val stringsFile = outputXml.get()
+
+        val xlsFile = targetFile.getOrNull()?.let {
             try {
                 val file = project.file(it)
                 if (file.exists()) file else File(it)
@@ -29,8 +36,6 @@ open class HandleStringsTask : DefaultTask() {
             }
         } ?: throw IllegalArgumentException("xlsx/xls file is null")
 
-        val sheet = (project.properties["sheet"] as? String) ?: "strings"
-        val stringsFile = (project.properties["output"] as? String) ?: "strings.xml"
         if (stringsFile.endsWith(".xml").not()) {
             throw IllegalArgumentException("output is not xml file")
         }

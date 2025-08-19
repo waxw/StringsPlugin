@@ -33,3 +33,10 @@ abstract class FindStringsConfig(
     val outputXml: Property<String> =
         objects.property(String::class.java).convention("strings_find.xml")
 }
+
+abstract class HandleStringsConfig(
+    name: String, objects: ObjectFactory
+) : BaseConfig("handleStrings", name, objects) {
+    val sheet: Property<String> = objects.property(String::class.java).convention("strings")
+    val outputXml: Property<String> = objects.property(String::class.java).convention("strings.xml")
+}
