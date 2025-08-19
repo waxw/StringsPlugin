@@ -1,8 +1,8 @@
 package com.miyako.strings.plugin.task
 
 import com.miyako.strings.core.StringsCore
-import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.provider.ListProperty
+import org.gradle.api.tasks.Input
 import java.nio.file.Files
 import java.nio.file.Paths
 import kotlin.io.path.Path
@@ -10,16 +10,16 @@ import kotlin.io.path.exists
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.pathString
 
-open class DeleteStringsTask : DefaultTask() {
+abstract class DeleteStringsTask : BaseTask() {
+    @get:Input
+    abstract val keys: ListProperty<String>
 
-    @TaskAction
-    fun deleteStrings() {
-        val countries =
-            (project.properties["countries"] as? String)?.split(",")?.toList() ?: emptyList()
-        val targetKeys =
-            (project.properties["keys"] as? String)?.split(",")?.toList() ?: emptyList()
+    override fun action() {
+        val stringsFile = inputXml.get()
+        val countries = countries.get()
+        val targetKeys = keys.get()
 
-        val targetFile = (project.properties["file"] as? String)?.let {
+        val targetFile = targetFile.getOrNull()?.let {
             try {
                 val file = project.file(it)
                 val path = if (file.exists()) file.toPath() else Path(it)
@@ -37,8 +37,6 @@ open class DeleteStringsTask : DefaultTask() {
         }
 
         val root = "${project.projectDir}/src/main/res"
-
-        val stringsFile = (project.properties["target"] as? String) ?: "strings.xml"
 
         val stringsXmlFiles = if (countries.isEmpty() || countries.any { it == "all" }) {
             Paths.get(root).listDirectoryEntries("values*").map {

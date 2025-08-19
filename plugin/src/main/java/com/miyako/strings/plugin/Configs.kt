@@ -19,3 +19,9 @@ abstract class BaseConfig @Inject constructor(
 abstract class CountStringsConfig(
     name: String, objects: ObjectFactory
 ) : BaseConfig("countStrings", name, objects)
+
+abstract class DeleteStringsConfig(
+    name: String, objects: ObjectFactory
+) : BaseConfig("deleteStrings", name, objects) {
+    val keys: ListProperty<String> = objects.listProperty(String::class.java).empty()
+}
