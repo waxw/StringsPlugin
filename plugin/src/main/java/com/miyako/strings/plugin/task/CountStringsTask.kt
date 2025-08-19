@@ -2,24 +2,19 @@ package com.miyako.strings.plugin.task
 
 import org.w3c.dom.Node
 import java.io.File
-import javax.xml.parsers.DocumentBuilderFactory
-import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.TaskAction
 import java.nio.file.Paths
+import javax.xml.parsers.DocumentBuilderFactory
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.pathString
 
-open class CountStringsTask : DefaultTask() {
+abstract class CountStringsTask : BaseTask() {
+    override fun action() {
 
-    @TaskAction
-    fun count() {
-
-        val countries =
-            (project.properties["countries"] as? String)?.split(",")?.toList() ?: emptyList()
+        val countries = countries.get()
 
         val root = "${project.projectDir}/src/main/res"
 
-        val stringsFile = (project.properties["target"] as? String) ?: "strings.xml"
+        val stringsFile = inputXml.get()
 
         val stringsXmlFiles = if (countries.isEmpty()) {
             val name = "values/$stringsFile"

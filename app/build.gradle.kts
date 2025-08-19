@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.miyako.strings.plugin")
+    id("io.github.waxw.strings.plugin")
 }
 
 android {
@@ -44,4 +44,16 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+}
+
+stringUtils {
+    countKeys {
+        default {
+            inputXml = "strings.xml"
+        }
+
+        create("test1") {
+            inputXml = "strings.xml"
+        }
+    }
 }

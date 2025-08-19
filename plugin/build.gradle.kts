@@ -14,7 +14,7 @@ java {
 
 val gavGroupId = "io.github.waxw"
 val gavArtifactId = "strings-plugin"
-val gavVersion = "1.0.3"
+val gavVersion = "1.0.4"
 
 // gradle 插件配置
 gradlePlugin {
