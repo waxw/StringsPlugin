@@ -56,4 +56,10 @@ stringUtils {
             inputXml = "strings.xml"
         }
     }
+
+    findKeys {
+        default {
+            keys = listOf("app_name")
+        }
+    }
 }

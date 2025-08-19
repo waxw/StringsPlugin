@@ -25,3 +25,11 @@ abstract class DeleteStringsConfig(
 ) : BaseConfig("deleteStrings", name, objects) {
     val keys: ListProperty<String> = objects.listProperty(String::class.java).empty()
 }
+
+abstract class FindStringsConfig(
+    name: String, objects: ObjectFactory
+) : BaseConfig("findStrings", name, objects) {
+    val keys: ListProperty<String> = objects.listProperty(String::class.java).empty()
+    val outputXml: Property<String> =
+        objects.property(String::class.java).convention("strings_find.xml")
+}

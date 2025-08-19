@@ -35,12 +35,19 @@ abstract class StringsExtensions @Inject constructor(objects: ObjectFactory) {
     val deleteKeys: DeleteStringsExtension =
         objects.newInstance(DeleteStringsExtension::class.java, objects)
 
+    val findKeys: FindStringsExtension =
+        objects.newInstance(FindStringsExtension::class.java, objects)
+
     fun countKeys(action: Action<CountStringsExtension>) {
         action.execute(countKeys)
     }
 
     fun deleteKeys(action: Action<DeleteStringsExtension>) {
         action.execute(deleteKeys)
+    }
+
+    fun findKeys(action: Action<FindStringsExtension>) {
+        action.execute(findKeys)
     }
 }
 
@@ -54,4 +61,10 @@ abstract class DeleteStringsExtension @Inject constructor(
     objects: ObjectFactory
 ) : BaseExtensions<DeleteStringsConfig>(objects) {
     override val config: NamedDomainObjectContainer<DeleteStringsConfig> = createContainer()
+}
+
+abstract class FindStringsExtension @Inject constructor(
+    objects: ObjectFactory
+) : BaseExtensions<FindStringsConfig>(objects) {
+    override val config: NamedDomainObjectContainer<FindStringsConfig> = createContainer()
 }
