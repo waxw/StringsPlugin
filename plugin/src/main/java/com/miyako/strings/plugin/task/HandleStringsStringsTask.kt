@@ -39,7 +39,9 @@ abstract class HandleStringsStringsTask : BaseStringsTask() {
         }
         val root = "${project.projectDir}/src/main/res"
 
-        val stringsXmlFiles = if (countries.isEmpty() || countries.any { it == "all" }) {
+        val isAll = countries.isEmpty() || countries.any { it == "all" }
+
+        val stringsXmlFiles = if (isAll) {
             Paths.get(root).listDirectoryEntries("values*").associate {
                 "${it.fileName}/$stringsFile" to Path(it.pathString, stringsFile)
             }
@@ -53,7 +55,12 @@ abstract class HandleStringsStringsTask : BaseStringsTask() {
         StringsCore.readXlsx(xlsFile, sheet).forEach {
             val outputFile = "${it.key}/$stringsFile"
             println("outputFile: $outputFile")
-            stringsXmlFiles[outputFile]?.let { path ->
+            val path = stringsXmlFiles[outputFile] ?: run {
+                if (isAll) {
+                    Path("$root/$outputFile")
+                } else null
+            }
+            path?.let { path ->
                 startHandle(outputFile, path, it.value)
             }
         }
