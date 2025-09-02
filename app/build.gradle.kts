@@ -47,6 +47,12 @@ dependencies {
 }
 
 stringUtils {
+
+    handleStrings {
+        default {
+            targetFile = "../new_strings.xlsx"
+        }
+    }
     countKeys {
         default {
             inputXml = "strings.xml"
