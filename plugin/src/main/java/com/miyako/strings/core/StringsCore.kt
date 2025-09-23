@@ -86,10 +86,9 @@ object StringsCore {
         val stringBuilder = StringBuilder()
         list.forEach {
             val (name, value) = it
-            val newValue = value.replace("'", "\\'")
-            val finalValue = "\t<string name=\"${name}\">${newValue}</string>"
+            val finalValue = "\t<string name=\"${name}\">${value}</string>"
             println("origin value: $value")
-            println("final value: $finalValue")
+            println("create final value: $finalValue")
             stringBuilder.appendLine(finalValue)
             cnt++
         }
@@ -127,7 +126,7 @@ object StringsCore {
             Regex(rgx).find(newContent)?.let {
                 val finalValue = "<string name=\"${name}\">${value}</string>"
                 println("origin value: $value")
-                println("final value: $finalValue")
+                println("replace final value: $finalValue")
                 // Regex.escapeReplacement(value)，替换文案中的 '\' 反斜杠
                 newContent = Regex(rgx).replace(newContent, Regex.escapeReplacement(finalValue))
                 cnt++
@@ -244,6 +243,10 @@ object StringsCore {
                 "'" -> "\\'"
                 "\r", "\n" -> " "
                 else -> "" // 去除前后空格
+            }.apply {
+                if (this.isNotEmpty()) {
+                    println("convert xlsx special: ${it.value} -> $this")
+                }
             }
         }
     }

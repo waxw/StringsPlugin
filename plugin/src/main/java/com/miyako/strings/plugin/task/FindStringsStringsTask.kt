@@ -1,8 +1,9 @@
 package com.miyako.strings.plugin.task
 
 import com.miyako.strings.core.StringsCore
-import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -12,16 +13,20 @@ import kotlin.io.path.exists
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.pathString
 
-open class FindStringsTask : DefaultTask() {
+abstract class FindStringsStringsTask : BaseStringsTask() {
+    @get:Input
+    abstract val keys: ListProperty<String>
 
-    @TaskAction
-    fun find() {
-        val countries =
-            (project.properties["counties"] as? String)?.split(",")?.toList() ?: emptyList()
-        val targetKeys =
-            (project.properties["keys"] as? String)?.split(",")?.toList() ?: emptyList()
+    @get:Input
+    abstract val outputXml: Property<String>
 
-        val targetFile = (project.properties["file"] as? String)?.let {
+    override fun action() {
+        val stringsFile = inputXml.get()
+        val countries = countries.get()
+        val outputFile = outputXml.get()
+        val targetKeys = keys.get()
+
+        val targetFile = targetFile.getOrNull()?.let {
             try {
                 val file = project.file(it)
                 val path = if (file.exists()) file.toPath() else Path(it)
@@ -40,8 +45,6 @@ open class FindStringsTask : DefaultTask() {
 
         val root = "${project.projectDir}/src/main/res"
 
-        val stringsFile = (project.properties["target"] as? String) ?: "strings.xml"
-        val outputFile = (project.properties["output"] as? String) ?: "strings_find.xml"
 
         val stringsXmlFiles = if (countries.isEmpty()) {
             val name = "values/$stringsFile"
